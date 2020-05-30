@@ -1,6 +1,6 @@
-if (game.user.isGM){
-Hooks.on('getUserContextOptions', function(){
 
+Hooks.on('getUserContextOptions', function(){
+if (game.user.isGM){
 function makeMini(){
 
 
