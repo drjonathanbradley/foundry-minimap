@@ -1,4 +1,3 @@
-
 Hooks.on('getUserContextOptions', function(){
 if (game.user.isGM){
 function makeMini(){
@@ -295,8 +294,9 @@ rec.style = `border: 2px solid red; height: ${squaresizeh/canvas.stage.scale.x}p
 }
 
 makeMini();
-});
+
 }
+});
 // $('li.scene.nav-item.gm').on('mouseover', function() {
 //     console.log($(this)[0].dataset.sceneId);
 // });
