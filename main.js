@@ -1,5 +1,5 @@
 Hooks.on('getUserContextOptions', function(){
-if (game.user.isGM){
+
 function makeMini(){
 
 
@@ -177,15 +177,24 @@ let paddedY =canvas.dimensions.paddingY+(document.getElementById('board').height
 // canvas.stage.scale.set(1,1)
 var wrapper =  document.createElement("div");
 wrapper.id="mydivheader";
-wrapper.style="position: relative;";
+
+wrapper.style=`position: relative;`;
 
 // wrapper.className="app";
 // var img = canvas.app.renderer.extract.image(canvas.background.img);
 var img = document.createElement("IMG");
 img.src=canvas.scene.img;
 // img.src="https://media2.giphy.com/media/rwNpHtaMGnStW/giphy-loop.mp4?cid=d0fab44ca13dbd595237c4d8b1a5ae0f4ed07e1af787feac&rid=giphy-loop.mp4"
-img.style="max-width: 200px; max-height: auto; "
-img.id='minimapimg'
+if (game.user.isGM){
+  
+img.style=`max-width: 200px; max-height: auto; `;
+}
+else{
+var aa=canvas.sight.fogData.explored;
+img.style=`max-width: 200px; max-height: auto;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size: contain;`;
+}
+console.log(img.style);
+img.id='minimapimg';
 wrapper.appendChild(img);
 var rec =  document.createElement("div");
 rec.className="box";
@@ -231,8 +240,7 @@ var posy =(canvas.stage.pivot.y - paddedY)/(dimensionsy/imageHeight);
 //Math.max(0,parseFloat(document.getElementById('hud').style.top,10));
 // posy= posy*minimaprationy;
 //(canvas.dimensions.paddingY + canvas.stage.pivot.y)/(canvas.dimensions.sceneHeight/imageHeight);
-
-rec.style = `border: 2px solid red; height: ${squaresizeh/canvas.stage.scale.x}px; left: ${posx}px; position: absolute; top: ${posy}px; width: ${squaresizew/canvas.stage.scale.x}px`
+rec.style = `border: 2px solid red; height: ${squaresizeh/canvas.stage.scale.x}px; left: ${posx}px; position: absolute; top: ${posy}px; width: ${squaresizew/canvas.stage.scale.x}px;`
 wrapper.appendChild(rec);
 
 dragElement(document.getElementById(("mydiv")));
@@ -294,9 +302,8 @@ rec.style = `border: 2px solid red; height: ${squaresizeh/canvas.stage.scale.x}p
 }
 
 makeMini();
-
-}
 });
+// }
 // $('li.scene.nav-item.gm').on('mouseover', function() {
 //     console.log($(this)[0].dataset.sceneId);
 // });
