@@ -205,6 +205,10 @@ var src = document.getElementById("players");
   // curRow.parentNode.insertBefore(wrapper, curRow.nextSibling);
 src.appendChild(wrapper);
 
+var minimap_actors ={};
+
+
+
 function loaded() {
 let imggg = document.getElementById('minimapimg');
   
@@ -242,6 +246,34 @@ var posy =(canvas.stage.pivot.y - paddedY)/(dimensionsy/imageHeight);
 //(canvas.dimensions.paddingY + canvas.stage.pivot.y)/(canvas.dimensions.sceneHeight/imageHeight);
 rec.style = `border: 2px solid red; height: ${squaresizeh/canvas.stage.scale.x}px; left: ${posx}px; position: absolute; top: ${posy}px; width: ${squaresizew/canvas.stage.scale.x}px;`
 wrapper.appendChild(rec);
+
+
+
+for (usera of game.users)
+{
+//  console.log(user.color);
+  let char = usera.data.character;
+  let toks = game.scenes.viewed.data.tokens.filter(w=> w.actorLink == true && w.actorId==char).map(l => ({'x': l.x, 'y': l.y}))
+  for (tok of toks)
+  {
+
+    let aposx =(tok.x - canvas.dimensions.paddingX)/(dimensionsx/imageWidth);
+    let aposy =(tok.y - canvas.dimensions.paddingY)/(dimensionsy/imageHeight);
+
+    console.log(`id ${char} X ${tok.x} Y ${tok.y} color ${usera.color}`);
+    minimap_actors[char] = document.createElement("div");
+    minimap_actors[char].id="minitock_"+char;
+    minimap_actors[char].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
+    // wrapper.removeChild
+    document.getElementById('mydivheader').appendChild(minimap_actors[char]);
+
+  }
+  
+}
+
+
+ 
+
 
 dragElement(document.getElementById(("mydiv")));
 
@@ -293,12 +325,51 @@ var posy =(canvas.stage.pivot.y - paddedY)/(dimensionsy/imageHeight);
 //(canvas.dimensions.paddingY + canvas.stage.pivot.y)/(canvas.dimensions.sceneHeight/imageHeight);
 
 rec.style = `border: 2px solid red; height: ${squaresizeh/canvas.stage.scale.x}px; left: ${posx}px; position: absolute; top: ${posy}px; width: ${squaresizew/canvas.stage.scale.x}px`
+
+
+
+for (usera of game.users)
+{
+//  console.log(user.color);
+  let char = usera.data.character;
+  let toks = game.scenes.viewed.data.tokens.filter(w=> w.actorLink == true && w.actorId==char).map(l => ({'x': l.x, 'y': l.y}))
+  for (tok of toks)
+  {
+
+    let aposx =(tok.x - canvas.dimensions.paddingX)/(dimensionsx/imageWidth);
+    let aposy =(tok.y - canvas.dimensions.paddingY)/(dimensionsy/imageHeight);
+
+    console.log(`id ${char} X ${tok.x} Y ${tok.y} color ${usera.color}`);
+    minimap_actors[char].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
+    // wrapper.removeChild
+
+  }
+  
+}
+
+
 }
 
 
         Hooks.on('canvasPan', async function() {
             resSqau();
         });
+        Hooks.on('createToken', async function() {
+            resSqau();
+        });
+        Hooks.on('deleteActor', async function() {
+            resSqau();
+        });
+        Hooks.on('deleteToken', async function() {
+            resSqau();
+        });
+        Hooks.on('updateToken', async function() {
+            resSqau();
+        });
+        Hooks.on('updateScene', async function() {
+            resSqau();
+        });
+
 }
 
 makeMini();
@@ -314,4 +385,3 @@ makeMini();
 
 
              // when element is clicked, we're going to request a
-   
