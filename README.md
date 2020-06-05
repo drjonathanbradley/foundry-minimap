@@ -9,3 +9,6 @@ Currently has the following features:
 3. All player token are shown live on the minimap.
 
 ![](https://i.imgur.com/4feonG4.mp4)
+
+<h1>Install</h1>
+https://gitlab.com/jesusafier/minimap/-/jobs/artifacts/master/raw/module.json?job=build-module
