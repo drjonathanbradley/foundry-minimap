@@ -1,3 +1,5 @@
+var minimap_actors ={};
+
 Hooks.on('getUserContextOptions', function(){
 
 function makeMini(){
@@ -97,13 +99,14 @@ function dragElement(elmnt) {
     // check to make sure the element will be within our viewport boundary
 var newLeft = 0;
 var newTop = 0;
-if (elmnt.offsetLeft + movementX < viewport.left) {newLeft=viewport.left;}
-else if (elmnt.offsetLeft + movementX + rect.width > viewport.right ){newLeft=elmnt.offsetLeft;}
-else{newLeft = elmnt.offsetLeft + movementX;}
-
-if (elmnt.offsetTop + movementY < viewport.top) {newTop=viewport.top;}
-else if (elmnt.offsetTop + movementY + rect.height > viewport.bottom ){newTop=elmnt.offsetTop;}
-else{newTop = elmnt.offsetTop + movementY;}
+// if (elmnt.offsetLeft + movementX < viewport.left) {newLeft=viewport.left;}
+// else if (elmnt.offsetLeft + movementX + rect.width > viewport.right ){newLeft=viewport.right - rect.width;}
+// else{newLeft = elmnt.offsetLeft + movementX;}
+newLeft = elmnt.offsetLeft + movementX;
+newTop = elmnt.offsetTop + movementY;
+// if (elmnt.offsetTop + movementY < viewport.top) {newTop=viewport.top;}
+// else if (elmnt.offsetTop + movementY + rect.height > viewport.bottom ){newTop=viewport.bottom - rect.height;}
+// else{newTop = elmnt.offsetTop + movementY;}
 
 
 
@@ -178,7 +181,7 @@ let paddedY =canvas.dimensions.paddingY+(document.getElementById('board').height
 var wrapper =  document.createElement("div");
 wrapper.id="mydivheader";
 
-wrapper.style=`position: relative;`;
+wrapper.style=`position: relative; overflow: hidden; `;
 
 // wrapper.className="app";
 // var img = canvas.app.renderer.extract.image(canvas.background.img);
@@ -190,7 +193,7 @@ if (game.user.isGM){
 img.style=`max-width: 200px; max-height: auto; `;
 }
 else{
-var aa=canvas.sight.fogData.explored;
+let aa = null;
 img.style=`max-width: 200px; max-height: auto;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size: contain;`;
 }
 console.log(img.style);
@@ -205,7 +208,19 @@ var src = document.getElementById("players");
   // curRow.parentNode.insertBefore(wrapper, curRow.nextSibling);
 src.appendChild(wrapper);
 
-var minimap_actors ={};
+      // let options = Application.defaultOptions;
+      // options.template = "modules/MiniMap/minimap.html";
+      // options.popOut = false;
+      // options.resizable = false;
+      // options.width='200';
+      // options.height='200';
+      // options.top='200';
+      // options.left='200';
+      // options.title="asdfasdfasdfasd";
+      // options.draggagle=true;
+      // var gaga = new Application(options);
+      // gaga.render(true);
+
 
 
 
@@ -244,6 +259,20 @@ var posy =(canvas.stage.pivot.y - paddedY)/(dimensionsy/imageHeight);
 //Math.max(0,parseFloat(document.getElementById('hud').style.top,10));
 // posy= posy*minimaprationy;
 //(canvas.dimensions.paddingY + canvas.stage.pivot.y)/(canvas.dimensions.sceneHeight/imageHeight);
+
+
+
+if (game.user.isGM){
+}
+else{
+ canvas.sight.saveFog()
+let aa= canvas.sight.fogData.explored;
+      let leftshad =(canvas.dimensions.paddingX)/(dimensionsx/imageWidth);
+      let topshad =(canvas.dimensions.paddingY)/(dimensionsy/imageHeight);
+      let maskw = (canvas.dimensions.width)/(dimensionsx/imageWidth);
+      let maskh = (canvas.dimensions.height)/(dimensionsy/imageHeight);
+imggg.style=`max-width: 200px; max-height: auto;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size: ${maskw}px ${maskh}px; -webkit-mask-position: -${leftshad}px -${topshad}px;`;
+}
 rec.style = `border: 2px solid red; height: ${squaresizeh/canvas.stage.scale.x}px; left: ${posx}px; position: absolute; top: ${posy}px; width: ${squaresizew/canvas.stage.scale.x}px;`
 wrapper.appendChild(rec);
 
@@ -253,22 +282,24 @@ for (usera of game.users)
 {
 //  console.log(user.color);
   let char = usera.data.character;
-  let toks = game.scenes.viewed.data.tokens.filter(w=> w.actorLink == true && w.actorId==char).map(l => ({'x': l.x, 'y': l.y}))
-  for (tok of toks)
+  if (char)
   {
-
-    let aposx =(tok.x - canvas.dimensions.paddingX)/(dimensionsx/imageWidth);
-    let aposy =(tok.y - canvas.dimensions.paddingY)/(dimensionsy/imageHeight);
-
-    console.log(`id ${char} X ${tok.x} Y ${tok.y} color ${usera.color}`);
-    minimap_actors[char] = document.createElement("div");
-    minimap_actors[char].id="minitock_"+char;
-    minimap_actors[char].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
-    // wrapper.removeChild
-    document.getElementById('mydivheader').appendChild(minimap_actors[char]);
-
-  }
+    let toks = game.scenes.viewed.data.tokens.filter(w=> w.actorLink == true && w.actorId==char).map(l => ({'x': l.x, 'y': l.y}))
+    for (tok of toks)
+    {
   
+      let aposx =(tok.x - canvas.dimensions.paddingX)/(dimensionsx/imageWidth);
+      let aposy =(tok.y - canvas.dimensions.paddingY)/(dimensionsy/imageHeight);
+  
+      console.log(`id ${char} X ${tok.x} Y ${tok.y} color ${usera.color}`);
+      minimap_actors[char] = document.createElement("div");
+      minimap_actors[char].id="minitock_"+char;
+      minimap_actors[char].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
+      // wrapper.removeChild
+      document.getElementById('mydivheader').appendChild(minimap_actors[char]);
+  
+    }
+  }
 }
 
 
@@ -324,26 +355,30 @@ var posy =(canvas.stage.pivot.y - paddedY)/(dimensionsy/imageHeight);
 // posy= posy*minimaprationy;
 //(canvas.dimensions.paddingY + canvas.stage.pivot.y)/(canvas.dimensions.sceneHeight/imageHeight);
 
-rec.style = `border: 2px solid red; height: ${squaresizeh/canvas.stage.scale.x}px; left: ${posx}px; position: absolute; top: ${posy}px; width: ${squaresizew/canvas.stage.scale.x}px`
+rec.style = `overflow: hidden; border: 2px solid red; height: ${squaresizeh/canvas.stage.scale.x}px; left: ${posx}px; position: absolute; top: ${posy}px; width: ${squaresizew/canvas.stage.scale.x}px`
 
 
 
 for (usera of game.users)
 {
-//  console.log(user.color);
+
   let char = usera.data.character;
-  let toks = game.scenes.viewed.data.tokens.filter(w=> w.actorLink == true && w.actorId==char).map(l => ({'x': l.x, 'y': l.y}))
-  for (tok of toks)
+  if (char)
   {
-
-    let aposx =(tok.x - canvas.dimensions.paddingX)/(dimensionsx/imageWidth);
-    let aposy =(tok.y - canvas.dimensions.paddingY)/(dimensionsy/imageHeight);
-
-    console.log(`id ${char} X ${tok.x} Y ${tok.y} color ${usera.color}`);
-    minimap_actors[char].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
-    // wrapper.removeChild
-
+    let toks = game.scenes.viewed.data.tokens.filter(w=> w.actorLink == true && w.actorId==char).map(l => ({'x': l.x, 'y': l.y}))
+    for (tok of toks)
+    {
+  
+      let aposx =(tok.x - canvas.dimensions.paddingX)/(dimensionsx/imageWidth);
+      let aposy =(tok.y - canvas.dimensions.paddingY)/(dimensionsy/imageHeight);
+  
+      minimap_actors[char].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
+      // wrapper.removeChild
+  
+    }
   }
+
+
   
 }
 
