@@ -11,7 +11,7 @@ build-module:
     - export DOWNLOAD="$CI_PROJECT_URL/-/jobs/artifacts/$CI_COMMIT_REF_SLUG/raw/$MODULE_NAME.zip?job=build-module"
     - echo "Building $MODULE_NAME"
     - mkdir $MODULE_NAME
-    - 'cp main.js $MODULE_NAME'
+    - 'cp main.js template.html $MODULE_NAME'
     - '[[ -e src ]] && cp -r src $MODULE_NAME'
     - '[[ -e scripts ]] && cp -r scripts $MODULE_NAME'
     - '[[ -e styles ]] && cp -r styles $MODULE_NAME'
