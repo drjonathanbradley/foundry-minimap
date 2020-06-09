@@ -4,7 +4,7 @@
 	"description": "MiniMap module",
 	"version": "0.0.5",
 	"author": "Jesusafier Ohh",
-	"scripts": ["main.js"],
+	"scripts": ["main.js","template.html"],
 	"minimumCoreVersion": "0.6.0",
 	"compatibleCoreVersion": "0.6.2",
 	"url": "https://gitlab.com/jesusafier/minimap/",
