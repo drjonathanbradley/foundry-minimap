@@ -2,7 +2,7 @@
 	"name": "MiniMap",
 	"title": "MiniMap",
 	"description": "MiniMap module",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"author": "Jesusafier Ohh",
 	"scripts": ["main.js"],
 	"minimumCoreVersion": "0.6.0",
