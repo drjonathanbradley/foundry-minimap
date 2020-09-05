@@ -12,3 +12,4 @@ Currently has the following features:
 
 <h1>Install</h1>
 https://gitlab.com/jesusafier/minimap/-/jobs/artifacts/master/raw/module.json?job=build-module
+Join the discussions on our [Discord](https://discord.gg/467HAfZ)
