@@ -6,7 +6,7 @@
 	"author": "Jesusafier Ohh",
 	"scripts": ["main.js"],
 	"minimumCoreVersion": "0.6.0",
-	"compatibleCoreVersion": "0.6.2",
+	"compatibleCoreVersion": "0.6.6",
 	"url": "https://gitlab.com/jesusafier/minimap/",
 	"manifest": "https://gitlab.com/jesusafier/minimap/raw/master/module.json",
 	"download": "https://gitlab.com/jesusafier/minimap/-/raw/master/main.js"
