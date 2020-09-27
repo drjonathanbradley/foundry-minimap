@@ -11,6 +11,11 @@ Currently has the following features:
 ![](https://i.imgur.com/4feonG4.mp4)
 
 <h1>Install</h1>
+<h2>On foundryVTT modules list</h2>
+Search for MiniMap
+
+
+<h2>Manual Install</h2>
 https://gitlab.com/jesusafier/minimap/-/jobs/artifacts/master/raw/module.json?job=build-module
 
 Join the discussions on our [Discord](https://discord.gg/467HAfZ)
