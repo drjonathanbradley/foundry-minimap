@@ -1,4 +1,5 @@
-<div id="mydivheader" style="position: absolute; overflow: hidden;">
+<div id="mydivheader" style="position: absolute; overflow: hidden;background-color: rgba(0, 0, 0);">
+
 
    <i id="minimap_loading" class="fa fa-spinner fa-pulse fa-3x fa-fw" style="color:red; margin: auto"></i>
    <img onload="mini_loaded()" onmousewheel="minimap_zoom()" src="{{src}}" id="minimapimg" style="display: none">
@@ -20,8 +21,8 @@ document.getElementById('mydivheader').parentNode.style.padding="0px";
    	document.getElementById('mydivheader').onwheel = minimap_zoom;
 function update_mask(){
 	//debugger;
-	canvas.sight._commitFogUpdate()
-	canvas.sight.saveFog()
+	// canvas.sight._commitFogUpdate()
+	// canvas.sight.saveFog()
    let aa= canvas.sight.fogData.explored;
    let w_ratio = (minimap_data.dimensionsx/minimap_data.imageWidth);
    let h_ratio = (minimap_data.dimensionsy/minimap_data.imageHeight);
@@ -40,8 +41,8 @@ function mini_loaded(){
    
    }
    else{
-   	canvas.sight._commitFogUpdate()
-	canvas.sight.saveFog()
+   	// canvas.sight._commitFogUpdate()
+	// canvas.sight.saveFog()
    let aa= canvas.sight.fogData.explored;
    $('#minimapimg')[0].style=`max-width: 200px; max-height: auto;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size: contain;`;
    }
@@ -94,19 +95,19 @@ function mini_loaded(){
    let char = usera.data.character;
    if (char)
    {
-    let toks = game.scenes.viewed.data.tokens.filter(w=> w.actorLink == true && w.actorId==char).map(l => ({'x': l.x, 'y': l.y}))
+    let toks = game.scenes.viewed.data.tokens.filter(w=> w.actorLink == true && w.actorId==char).map(l => ({'x': l.x, 'y': l.y, '_id':l._id}))
     for (tok of toks)
     {
    
       let aposx =(tok.x - canvas.dimensions.paddingX)/(minimap_data.dimensionsx/minimap_data.imageWidth);
       let aposy =(tok.y - canvas.dimensions.paddingY)/(minimap_data.dimensionsy/minimap_data.imageHeight);
    
-      console.log(`id ${char} X ${tok.x} Y ${tok.y} color ${usera.color}`);
-      minimap_data.minimap_actors[char] = document.createElement("div");
-      minimap_data.minimap_actors[char].id="minitock_"+char;
-      minimap_data.minimap_actors[char].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
+      // console.log(`id ${char} X ${tok.x} Y ${tok.y} color ${usera.color}`);
+      minimap_data.minimap_actors[tok._id] = document.createElement("div");
+      minimap_data.minimap_actors[tok._id].id="minitock_"+tok._id;
+      minimap_data.minimap_actors[tok._id].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
       // wrapper.removeChild
-      document.getElementById('mydivheader').appendChild(minimap_data.minimap_actors[char]);
+      document.getElementById('mydivheader').appendChild(minimap_data.minimap_actors[tok._id]);
    
     }
    }

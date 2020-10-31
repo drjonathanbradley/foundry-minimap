@@ -90,6 +90,10 @@
                });
                Hooks.on('updateToken', async function() {
                    resSqau();
+    if (!(game.user.isGM)){
+
+                   update_mask();
+                 }
                });
            };
        }
@@ -140,14 +144,15 @@
            if (char) {
                let toks = game.scenes.viewed.data.tokens.filter(w => w.actorLink == true && w.actorId == char).map(l => ({
                    'x': l.x,
-                   'y': l.y
+                   'y': l.y,
+                   '_id':l._id
                }))
                for (tok of toks) {
 
                    let aposx = (tok.x - canvas.dimensions.paddingX) / w_ratio;
                    let aposy = (tok.y - canvas.dimensions.paddingY) / h_ratio;
 
-                   minimap_data.minimap_actors[char].style = `border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
+                   minimap_data.minimap_actors[tok._id].style = `border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
                    // wrapper.removeChild
 
                }

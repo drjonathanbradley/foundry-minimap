@@ -1,13 +1,15 @@
 {
-	"name": "MiniMap",
-	"title": "MiniMap",
-	"description": "MiniMap module",
-	"version": "0.0.7",
-	"author": "Jesusafier Ohh",
-	"scripts": ["main.js"],
-	"minimumCoreVersion": "0.6.0",
-	"compatibleCoreVersion": "0.6.6",
-	"url": "https://gitlab.com/jesusafier/minimap/",
-	"manifest": "https://gitlab.com/jesusafier/minimap/raw/master/module.json",
-	"download": "https://gitlab.com/jesusafier/minimap/-/raw/master/main.js"
+  "name": "MiniMap",
+  "title": "MiniMap",
+  "description": "MiniMap module",
+  "version": "0.0.8",
+  "author": "Jesusafier Ohh",
+  "scripts": [
+    "main.js"
+  ],
+  "minimumCoreVersion": "0.7.5",
+  "compatibleCoreVersion": "0.7.5",
+  "url": "https://gitlab.com/jesusafier/minimap/",
+  "manifest": "https://gitlab.com/jesusafier/minimap/-/jobs/artifacts/master/raw/module.json?job=build-module",
+  "download": "https://gitlab.com/jesusafier/minimap/-/jobs/artifacts/master/raw/MiniMap.zip?job=build-module"
 }
