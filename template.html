@@ -1,12 +1,3 @@
-<div id="mydivheader" style="position: absolute; overflow: hidden;background-color: rgba(0, 0, 0);">
-
-
-   <i id="minimap_loading" class="fa fa-spinner fa-pulse fa-3x fa-fw" style="color:red; margin: auto"></i>
-   <img onload="mini_loaded()" onmousewheel="minimap_zoom()" src="{{src}}" id="minimapimg" style="display: none">
-   <div class="box" id="mydiv" style="display: none; border: 2px solid red; height: 38.7048px; left: 0px; position: absolute; top: 0px; width: 78.7081px;">
-   </div>
-
-</div>
 
 <!-- 
    <div><i class="fas fa-redo" id="minimap_refresh_mask" style="color:red;" onclick="update_mask()"></i></div>
@@ -103,11 +94,11 @@ function mini_loaded(){
       let aposy =(tok.y - canvas.dimensions.paddingY)/(minimap_data.dimensionsy/minimap_data.imageHeight);
    
       // console.log(`id ${char} X ${tok.x} Y ${tok.y} color ${usera.color}`);
-      minimap_data.minimap_actors[tok._id] = document.createElement("div");
-      minimap_data.minimap_actors[tok._id].id="minitock_"+tok._id;
-      minimap_data.minimap_actors[tok._id].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
+      minimap_data.minimap_actors[tok] = document.createElement("div");
+      minimap_data.minimap_actors[tok].id="minitock_"+tok;
+      minimap_data.minimap_actors[tok].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
       // wrapper.removeChild
-      document.getElementById('mydivheader').appendChild(minimap_data.minimap_actors[tok._id]);
+      document.getElementById('mydivheader').appendChild(minimap_data.minimap_actors[tok]);
    
     }
    }
@@ -209,4 +200,18 @@ function mini_loaded(){
    }
    dragElement(document.getElementById(("mydiv")));
 }
+
+
+   
+document.getElementById("mydivheader").innerHTML = `
+<i id="minimap_loading" class="fa fa-spinner fa-pulse fa-3x fa-fw" style="color:red; margin: auto"></i>
+   <img  onmousewheel="minimap_zoom()" src="{{src}}" id="minimapimg" style="display: none" onload="mini_loaded()">
+   <div class="box" id="mydiv" style="display: none; border: 2px solid red; height: 38.7048px; left: 0px; position: absolute; top: 0px; width: 78.7081px;">
+   </div>
+`
 </script>
+<div id="mydivheader" style="position: absolute; overflow: hidden;background-color: rgba(0, 0, 0);">
+
+
+
+</div>

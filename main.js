@@ -109,15 +109,32 @@
    });
 
    function initMap() {
+    let dataURL = canvas.scene.img;
+    if(canvas.background.isVideo)
+    {
+          const video = canvas.background.source;
+
+          const canvas_html = document.createElement("canvas");
+          let aa_ratio = video.videoWidth/200
+          // scale the canvas accordingly
+          canvas_html.width = 200;
+          canvas_html.height = video.videoHeight/aa_ratio;
+          // draw the video at that frame
+          canvas_html.getContext('2d')
+            .drawImage(video, 0, 0, canvas_html.width, canvas_html.height);
+          // convert it to a usable data URL
+           dataURL = canvas_html.toDataURL();
+    }
+
 
        if (minimap_data.minimapapp != null) {
            delete minimap_data.minimapapp;
-           minimap_data.minimapapp = new MiniMapApp(canvas.scene.img, {
+           minimap_data.minimapapp = new MiniMapApp(dataURL, {
                title: "MiniMap"
            });
            minimap_data.minimapapp.render(true)
        } else {
-           minimap_data.minimapapp = new MiniMapApp(canvas.scene.img, {
+           minimap_data.minimapapp = new MiniMapApp(dataURL, {
                title: "MiniMap"
            });
        }
