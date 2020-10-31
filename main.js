@@ -115,10 +115,10 @@
           const video = canvas.background.source;
 
           const canvas_html = document.createElement("canvas");
-          let aa_ratio = video.videoWidth/200
+          // let aa_ratio = video.videoWidth/200
           // scale the canvas accordingly
-          canvas_html.width = 200;
-          canvas_html.height = video.videoHeight/aa_ratio;
+          canvas_html.width = video.videoWidth;
+          canvas_html.height = video.videoHeight;///aa_ratio;
           // draw the video at that frame
           canvas_html.getContext('2d')
             .drawImage(video, 0, 0, canvas_html.width, canvas_html.height);
