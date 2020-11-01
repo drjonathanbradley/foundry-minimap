@@ -30,7 +30,7 @@ function update_mask(){
       let topshad =(canvas.dimensions.paddingY)/h_ratio;
       let maskw = (canvas.dimensions.width)/w_ratio;
       let maskh = (canvas.dimensions.height)/h_ratio;
-      let heitos = minimap_data['imageWidth']
+      let heitos = minimap_data['imageHeight']
    $('#minimapimg')[0].style=`width: 200px; height: ${heitos}px; mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size:contain`;// ${maskw}px ${maskh}px;`;// -webkit-mask-position: -${leftshad}px -${topshad}px;`;
 }
 function mini_loaded(){   
@@ -50,7 +50,7 @@ function mini_loaded(){
    	// canvas.sight._commitFogUpdate()
 	// canvas.sight.saveFog()
    let aa= canvas.sight.fogData.explored;
-      let heitos = minimap_data['imageWidth']
+      let heitos = minimap_data['imageHeight']
 
    $('#minimapimg')[0].style=`width: 200px; height: ${heitos}px;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size: contain;`;
    }
