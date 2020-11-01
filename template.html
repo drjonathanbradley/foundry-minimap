@@ -14,6 +14,15 @@ function update_mask(){
 	//debugger;
 	// canvas.sight._commitFogUpdate()
 	// canvas.sight.saveFog()
+//    let aa= canvas.sight.fogData.explored;
+//    let w_ratio = (minimap_data.dimensionsx/minimap_data.imageWidth);
+//    let h_ratio = (minimap_data.dimensionsy/minimap_data.imageHeight);
+//       let leftshad =(canvas.dimensions.paddingX)/w_ratio;
+//       let topshad =(canvas.dimensions.paddingY)/h_ratio;
+//       let maskw = (canvas.dimensions.width)/w_ratio;
+//       let maskh = (canvas.dimensions.height)/h_ratio;
+//    $('#minimapimg')[0].style=`max-width: 200px; max-height: auto;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size: ${maskw}px ${maskh}px; -webkit-mask-position: -${leftshad}px -${topshad}px;`;
+
    let aa= canvas.sight.fogData.explored;
    let w_ratio = (minimap_data.dimensionsx/minimap_data.imageWidth);
    let h_ratio = (minimap_data.dimensionsy/minimap_data.imageHeight);
@@ -21,7 +30,8 @@ function update_mask(){
       let topshad =(canvas.dimensions.paddingY)/h_ratio;
       let maskw = (canvas.dimensions.width)/w_ratio;
       let maskh = (canvas.dimensions.height)/h_ratio;
-   $('#minimapimg')[0].style=`max-width: 200px; max-height: auto;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size: ${maskw}px ${maskh}px; -webkit-mask-position: -${leftshad}px -${topshad}px;`;
+      let heitos = minimap_data['imageWidth']
+   $('#minimapimg')[0].style=`width: 200px; height: ${heitos}px; max-height: auto;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size:contain`;// ${maskw}px ${maskh}px;`;// -webkit-mask-position: -${leftshad}px -${topshad}px;`;
 }
 function mini_loaded(){   
 	
@@ -41,8 +51,9 @@ function mini_loaded(){
    
  
    let imggg = $('#minimapimg')[0];
-   minimap_data['imageHeight']= imggg.height;
-   minimap_data['imageWidth']= imggg.width;
+   let width_ratio_new = 200/canvas.dimensions.sceneWidth;
+   minimap_data['imageHeight']= canvas.dimensions.sceneHeight * width_ratio_new;
+   minimap_data['imageWidth']= 200;
 
    // document.getElementById('minimappopup').style.width=minimap_data.imageWidth+'px';
    // document.getElementById('minimappopup').style.height=(minimap_data.imageHeight)+'px';
@@ -94,11 +105,11 @@ function mini_loaded(){
       let aposy =(tok.y - canvas.dimensions.paddingY)/(minimap_data.dimensionsy/minimap_data.imageHeight);
    
       // console.log(`id ${char} X ${tok.x} Y ${tok.y} color ${usera.color}`);
-      minimap_data.minimap_actors[tok] = document.createElement("div");
-      minimap_data.minimap_actors[tok].id="minitock_"+tok;
-      minimap_data.minimap_actors[tok].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
+      minimap_data.minimap_actors[tok._id] = document.createElement("div");
+      minimap_data.minimap_actors[tok._id].id="minitock_"+tok._id;
+      minimap_data.minimap_actors[tok._id].style=`border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
       // wrapper.removeChild
-      document.getElementById('mydivheader').appendChild(minimap_data.minimap_actors[tok]);
+      document.getElementById('mydivheader').appendChild(minimap_data.minimap_actors[tok._id]);
    
     }
    }

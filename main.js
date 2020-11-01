@@ -168,9 +168,12 @@
 
                    let aposx = (tok.x - canvas.dimensions.paddingX) / w_ratio;
                    let aposy = (tok.y - canvas.dimensions.paddingY) / h_ratio;
-
-                   minimap_data.minimap_actors[tok._id].style = `border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
-                   // wrapper.removeChild
+                    try
+                    
+ {                   
+  minimap_data.minimap_actors[tok._id].style = `border-radius: 50%; position: absolute; height: 8px; width: 8px; background: ${usera.color}; left: ${aposx}px; top: ${aposy}px`;
+                    }       catch{}
+                               // wrapper.removeChild
 
                }
            }
