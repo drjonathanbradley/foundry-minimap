@@ -35,6 +35,11 @@ function update_mask(){
 }
 function mini_loaded(){   
 	
+   let imggg = $('#minimapimg')[0];
+   let width_ratio_new = 200/canvas.dimensions.sceneWidth;
+   minimap_data['imageHeight']= canvas.dimensions.sceneHeight * width_ratio_new;
+   minimap_data['imageWidth']= 200;
+   
    	if (game.user.isGM){
    $('#minimapimg')[0].style=`max-width: 200px; max-height: auto; `;
    
@@ -45,15 +50,13 @@ function mini_loaded(){
    	// canvas.sight._commitFogUpdate()
 	// canvas.sight.saveFog()
    let aa= canvas.sight.fogData.explored;
+      let heitos = minimap_data['imageWidth']
+
    $('#minimapimg')[0].style=`width: 200px; height: ${heitos}px;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size: contain;`;
    }
    
    
  
-   let imggg = $('#minimapimg')[0];
-   let width_ratio_new = 200/canvas.dimensions.sceneWidth;
-   minimap_data['imageHeight']= canvas.dimensions.sceneHeight * width_ratio_new;
-   minimap_data['imageWidth']= 200;
 
    // document.getElementById('minimappopup').style.width=minimap_data.imageWidth+'px';
    // document.getElementById('minimappopup').style.height=(minimap_data.imageHeight)+'px';
