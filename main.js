@@ -146,8 +146,8 @@
        }
        let w_ratio = (minimap_data.dimensionsx / minimap_data.imageWidth);
        let h_ratio = (minimap_data.dimensionsy / minimap_data.imageHeight);
-       minimap_data.paddedX = canvas.dimensions.paddingX + (document.getElementById('board').width / 2 / canvas.stage.scale.x);
-       minimap_data.paddedY = canvas.dimensions.paddingY + (document.getElementById('board').height / 2 / canvas.stage.scale.y);
+       minimap_data.paddedX = canvas.dimensions.paddingX + (document.getElementById('board').width / window.devicePixelRatio / 2 / canvas.stage.scale.x);
+       minimap_data.paddedY = canvas.dimensions.paddingY + (document.getElementById('board').height / window.devicePixelRatio / 2 / canvas.stage.scale.y);
 
        minimap_data['posx'] = (canvas.stage.pivot.x - minimap_data.paddedX) / w_ratio;
        minimap_data['posy'] = (canvas.stage.pivot.y - minimap_data.paddedY) / h_ratio;
