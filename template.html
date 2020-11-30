@@ -64,26 +64,26 @@ function mini_loaded(){
 
    // debugger;
    // minimap_data.minimapapp
-   minimap_data.minimapapp.position.width= minimap_data.imageWidth;
-   minimap_data.minimapapp.position.height=minimap_data.imageHeight;
+   minimap_data.minimapapp.position.width = minimap_data.imageWidth;
+   minimap_data.minimapapp.position.height = minimap_data.imageHeight;
 
-   minimap_data['screensizex']= document.getElementById('board').width;
-   minimap_data['screensizey']= document.getElementById('board').height;
+   minimap_data['screensizex'] = document.getElementById('board').width / window.devicePixelRatio;
+   minimap_data['screensizey'] = document.getElementById('board').height / window.devicePixelRatio;
    
-   minimap_data['dimensionsy']= canvas.dimensions.sceneHeight;
-   minimap_data['dimensionsx']= canvas.dimensions.sceneWidth;
+   minimap_data['dimensionsy'] = canvas.dimensions.sceneHeight;
+   minimap_data['dimensionsx'] = canvas.dimensions.sceneWidth;
    
-   minimap_data['minimaprationx']= minimap_data.screensizex/minimap_data.dimensionsx;
-   minimap_data['minimaprationy']= minimap_data.screensizey/minimap_data.dimensionsy;
+   minimap_data['minimaprationx'] = minimap_data.screensizex / minimap_data.dimensionsx;
+   minimap_data['minimaprationy'] = minimap_data.screensizey / minimap_data.dimensionsy;
 
-   minimap_data['squaresizew']= minimap_data.imageWidth*minimap_data.minimaprationx;
-   minimap_data['squaresizeh']= minimap_data.imageHeight*minimap_data.minimaprationy;
+   minimap_data['squaresizew'] = minimap_data.imageWidth * minimap_data.minimaprationx;
+   minimap_data['squaresizeh'] = minimap_data.imageHeight * minimap_data.minimaprationy;
 
-   minimap_data['paddedX']=  canvas.dimensions.paddingX+(minimap_data.screensizex/2/canvas.stage.scale.x);
-   minimap_data['paddedY']=  canvas.dimensions.paddingY+(minimap_data.screensizey/2/canvas.stage.scale.y);
+   minimap_data['paddedX'] = canvas.dimensions.paddingX + (minimap_data.screensizex / 2 / canvas.stage.scale.x);
+   minimap_data['paddedY'] = canvas.dimensions.paddingY + (minimap_data.screensizey / 2 / canvas.stage.scale.y);
    
-   minimap_data['posx']=(canvas.stage.pivot.x - minimap_data.paddedX)/(minimap_data.dimensionsx/minimap_data.imageWidth);
-   minimap_data['posy'] =(canvas.stage.pivot.y - minimap_data.paddedY)/(minimap_data.dimensionsy/minimap_data.imageHeight);
+   minimap_data['posx'] = (canvas.stage.pivot.x - minimap_data.paddedX) / (minimap_data.dimensionsx / minimap_data.imageWidth);
+   minimap_data['posy'] = (canvas.stage.pivot.y - minimap_data.paddedY) / (minimap_data.dimensionsy / minimap_data.imageHeight);
    
 	$('#minimap_loading').hide();
    if (game.user.isGM){
@@ -214,6 +214,27 @@ function mini_loaded(){
    }
    dragElement(document.getElementById(("mydiv")));
 }
+
+window.addEventListener("resize", resizeThrottler, false);
+
+var resizeTimeout;
+function resizeThrottler() {
+    // ignore resize events as long as an actualResizeHandler execution is in the queue
+    if ( !resizeTimeout ) {
+      resizeTimeout = setTimeout(function() {
+        resizeTimeout = null;
+        actualResizeHandler();
+     
+       // The actualResizeHandler will execute at a rate of 15fps
+       }, 66);
+    }
+}
+
+function actualResizeHandler() {
+    // handle the resize event
+    mini_loaded();
+}
+
 
 
    
