@@ -1,4 +1,4 @@
-<h1>MiniMap</h1>
+<h1>MiniMap-revamp</h1>
 
 A simple minimap module for foundryVTT. Currently being updated to work with Foundry 0.8^.
 
