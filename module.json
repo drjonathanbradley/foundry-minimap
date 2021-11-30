@@ -1,15 +1,13 @@
 {
-  "name": "MiniMap",
-  "title": "MiniMap",
-  "description": "MiniMap module",
-  "version": "0.0.14",
-  "author": "Jesusafier Ohh",
-  "scripts": [
-    "main.js"
-  ],
-  "minimumCoreVersion": "0.7.5",
-  "compatibleCoreVersion": "0.7.7",
-  "url": "https://gitlab.com/jesusafier/minimap/",
-  "manifest": "https://gitlab.com/jesusafier/minimap/-/jobs/artifacts/master/raw/module.json?job=build-module",
-  "download": "https://gitlab.com/jesusafier/minimap/-/jobs/artifacts/master/raw/MiniMap.zip?job=build-module"
+  "name": "MiniMap (Revamp)",
+  "title": "MiniMap (Revamp)",
+  "description": "MiniMap module currently being updated for foundry 0.8.9",
+  "version": "0.0.15",
+  "author": "Jesusafier Ohh, updated by Jonathan",
+  "scripts": ["main.js"],
+  "minimumCoreVersion": "0.8.1",
+  "compatibleCoreVersion": "0.8.9",
+  "url": "https://github.com/drjonathanbradley/foundry-minimap",
+  "manifest": "https://github.com/drjonathanbradley/foundry-minimap/releases/latest/download/module.json",
+  "download": "https://github.com/drjonathanbradley/foundry-minimap/releases/download/0.0.15/minimap-revamp.zip"
 }

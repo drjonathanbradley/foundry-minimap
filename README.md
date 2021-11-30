@@ -1,6 +1,6 @@
 <h1>MiniMap</h1>
 
-A simple minimap module for foundryVTT.
+A simple minimap module for foundryVTT. Currently being updated to work with Foundry 0.8^.
 
 Currently has the following features:
 
@@ -10,13 +10,5 @@ Currently has the following features:
 
 ![](https://i.imgur.com/4feonG4.mp4)
 
-<h1>Install</h1>
-<h2>On foundryVTT modules list</h2>
-Search for MiniMap
-
-
 <h2>Manual Install</h2>
-https://gitlab.com/jesusafier/minimap/-/jobs/artifacts/master/raw/module.json?job=build-module
-
-Join the discussions on our [Discord](https://discord.gg/467HAfZ)
-and if you liked it, consider supporting me on [patreon](https://www.patreon.com/foundry_grape_juice)
+https://github.com/drjonathanbradley/foundry-minimap/releases/latest/download/module.json
