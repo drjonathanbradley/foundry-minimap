@@ -8,7 +8,5 @@ Currently has the following features:
 2. Players view shows only explored areas.
 3. All player token are shown live on the minimap.
 
-![](https://i.imgur.com/4feonG4.mp4)
-
 <h2>Manual Install</h2>
 https://github.com/drjonathanbradley/foundry-minimap/releases/latest/download/module.json
