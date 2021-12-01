@@ -4,34 +4,23 @@
 <script type="text/javascript">
    document.getElementById('mydivheader').parentNode.style.padding = "0px";
    document.getElementById('mydivheader').parentNode.style.backgroundImage = "none";
+
    function minimap_zoom(event) {
       // debugger;
-      canvas._onMouseWheel(event);
+      if (event) {
+         canvas._onMouseWheel(event);
+      }
    }
-   document.getElementById('mydivheader').onwheel = minimap_zoom;
-   function update_mask() {
-      //debugger;
-      // canvas.sight._commitFogUpdate()
-      // canvas.sight.saveFog()
-      //    let aa= canvas.sight.fogExplorationData.explored;
-      //    let w_ratio = (minimap_data.dimensionsx/minimap_data.imageWidth);
-      //    let h_ratio = (minimap_data.dimensionsy/minimap_data.imageHeight);
-      //       let leftshad =(canvas.dimensions.paddingX)/w_ratio;
-      //       let topshad =(canvas.dimensions.paddingY)/h_ratio;
-      //       let maskw = (canvas.dimensions.width)/w_ratio;
-      //       let maskh = (canvas.dimensions.height)/h_ratio;
-      //    $('#minimapimg')[0].style=`max-width: 200px; max-height: auto;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size: ${maskw}px ${maskh}px; -webkit-mask-position: -${leftshad}px -${topshad}px;`;
 
-      let aa = canvas.sight.fogExplorationData.explored;
-      let w_ratio = (minimap_data.dimensionsx / minimap_data.imageWidth);
-      let h_ratio = (minimap_data.dimensionsy / minimap_data.imageHeight);
-      let leftshad = (canvas.dimensions.paddingX) / w_ratio;
-      let topshad = (canvas.dimensions.paddingY) / h_ratio;
-      let maskw = (canvas.dimensions.width) / w_ratio;
-      let maskh = (canvas.dimensions.height) / h_ratio;
+   document.getElementById('mydivheader').onwheel = minimap_zoom;
+
+   function update_mask() {
+      canvas.sight.saveFog();
+      let aa = canvas.sight.exploration.data.explored;
       let heitos = minimap_data['imageHeight']
       $('#minimapimg')[0].style = `width: 200px; height: ${heitos}px; mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size:contain`;// ${maskw}px ${maskh}px;`;// -webkit-mask-position: -${leftshad}px -${topshad}px;`;
    }
+
    function mini_loaded() {
 
       let imggg = $('#minimapimg')[0];
@@ -39,30 +28,18 @@
       minimap_data['imageHeight'] = canvas.dimensions.sceneHeight * width_ratio_new;
       minimap_data['imageWidth'] = 200;
 
-      if (game.user.isGM) {
+      if (game.user.isGM || !canvas.sight.exploration) {
          $('#minimapimg')[0].style = `max-width: 200px; max-height: auto; `;
-
-         // $('#minimap_refresh_mask')[0].hidden = true;
-
-      }
-      else {
-         // canvas.sight._commitFogUpdate()
-         // canvas.sight.saveFog()
-         let aa = canvas.sight.fogExplorationData.explored;
+      } else {
+         canvas.sight.saveFog()
+         console.log("cavas.sight:")
+         console.log(canvas.sight);
+         let aa = canvas.sight.exploration.data.explored;
          let heitos = minimap_data['imageHeight']
 
          $('#minimapimg')[0].style = `width: 200px; height: ${heitos}px;  mask-image: url(${aa}); -webkit-mask-image: url(${aa});  mask-size: contain; -webkit-mask-size: contain;`;
       }
 
-
-
-
-      // document.getElementById('minimappopup').style.width=minimap_data.imageWidth+'px';
-      // document.getElementById('minimappopup').style.height=(minimap_data.imageHeight)+'px';
-
-
-      // debugger;
-      // minimap_data.minimapapp
       minimap_data.minimapapp.position.width = minimap_data.imageWidth;
       minimap_data.minimapapp.position.height = minimap_data.imageHeight;
 
@@ -85,13 +62,12 @@
       minimap_data['posy'] = (canvas.stage.pivot.y - minimap_data.paddedY) / (minimap_data.dimensionsy / minimap_data.imageHeight);
 
       $('#minimap_loading').hide();
-      if (game.user.isGM) {
-      }
-      else {
+
+      if (!game.user.isGM && canvas.sight.exploration) {
          update_mask();
       }
-      $('#mydiv')[0].style = `overflow: hidden; border: 2px solid red; height: ${minimap_data.squaresizeh / canvas.stage.scale.x}px; left: ${minimap_data.posx}px; position: absolute; top: ${minimap_data.posy}px; width: ${minimap_data.squaresizew / canvas.stage.scale.x}px;`
 
+      $('#mydiv')[0].style = `overflow: hidden; border: 2px solid red; height: ${minimap_data.squaresizeh / canvas.stage.scale.x}px; left: ${minimap_data.posx}px; position: absolute; top: ${minimap_data.posy}px; width: ${minimap_data.squaresizew / canvas.stage.scale.x}px;`
 
       for (usera of game.users) {
          //  console.log(user.color);
@@ -114,7 +90,6 @@
          }
       }
 
-
       var PADDING = 0;
       var rect;
       var viewport = {
@@ -123,7 +98,6 @@
          right: 0,
          top: 0
       }
-
 
       function dragElement(elmnt) {
          var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -163,10 +137,7 @@
             // Ask the browser to lock the pointer)
             canvasa.requestPointerLock();
 
-
-
          }
-
 
          function elementDrag(e) {
             var movementX = e.movementX ||
@@ -204,9 +175,7 @@
             /* stop moving when mouse button is released:*/
             document.onmouseup = null;
             document.onmousemove = null;
-
          }
-
       }
       dragElement(document.getElementById(("mydiv")));
    }
@@ -230,9 +199,6 @@
       // handle the resize event
       mini_loaded();
    }
-
-
-
 
    document.getElementById("mydivheader").innerHTML = `
 <i id="minimap_loading" class="fa fa-spinner fa-pulse fa-3x fa-fw" style="color:red; margin: auto"></i>

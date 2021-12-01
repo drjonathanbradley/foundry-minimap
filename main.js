@@ -52,49 +52,88 @@ class MiniMapApp extends Application {
 }
 
 Hooks.on("getSceneControlButtons", (controls) => {
-  controls.push({
+  console.log("Controls: ");
+  console.log(controls);
+  controls[0].tools.push({
     name: "minimapcontrol",
-    title: "MiniMap",
-    // layer: "NotesLayer",
+    label: "MiniMap",
     icon: "fas fa-map-marked",
-    activeTool: "select",
-    tools: [
-      {
-        name: "select",
-        title: "MiniMapSelect",
-        icon: "fas fa-expand",
-      },
-    ],
+    visible: true,
+    button: true,
+    onClick: () => openMap(),
   });
+
+  //   Previous implementation, added a new control group, but caused unneeded subgroup or errors in the log. Moved to button for minimap under tokens so both GM and players have access
+  //   controls.push({
+  //     name: "minimapcontrol",
+  //     title: "MiniMap",
+  //     layer: "controls",
+  //     icon: "fas fa-map-marked",
+  //     activeTool: "select",
+  //     tools: [
+  //       {
+  //         name: "select",
+  //         title: "MiniMapSelect",
+  //         icon: "fas fa-expand",
+  //       },
+  //     ],
+  //   });
 });
 
-Hooks.on("renderSceneControls", () => {
-  $('li[data-control="minimapcontrol"]')[0].onclick = () => {
-    initMap();
-    minimap_data.minimapapp.render(true);
-    minimap_data.shown = true;
-    if (minimap_data.hooked == false) {
-      Hooks.on("canvasPan", async function () {
-        resSqau();
-      });
-      Hooks.on("createToken", async function () {
-        resSqau();
-      });
-      Hooks.on("deleteActor", async function () {
-        resSqau();
-      });
-      Hooks.on("deleteToken", async function () {
-        resSqau();
-      });
-      Hooks.on("updateToken", async function () {
-        resSqau();
-        if (!game.user.isGM) {
-          update_mask();
-        }
-      });
-    }
-  };
-});
+function openMap() {
+  initMap();
+  minimap_data.minimapapp.render(true);
+  minimap_data.shown = true;
+  if (minimap_data.hooked == false) {
+    Hooks.on("canvasPan", async function () {
+      resSqau();
+    });
+    Hooks.on("createToken", async function () {
+      resSqau();
+    });
+    Hooks.on("deleteActor", async function () {
+      resSqau();
+    });
+    Hooks.on("deleteToken", async function () {
+      resSqau();
+    });
+    Hooks.on("updateToken", async function () {
+      resSqau();
+      if (!game.user.isGM) {
+        update_mask();
+      }
+    });
+  }
+}
+
+// Previous implementation, set an onclick event on the control group to trigger opening the map. Caused error for invalid layer, or if using the UI layer, added an unneed control tool that triggered an error when clicked
+// Hooks.on("renderSceneControls", () => {
+//   $('li[data-control="minimapcontrol"]')[0].onclick = () => {
+//     initMap();
+//     minimap_data.minimapapp.render(true);
+//     minimap_data.shown = true;
+//     if (minimap_data.hooked == false) {
+//       Hooks.on("canvasPan", async function () {
+//         resSqau();
+//       });
+//       Hooks.on("createToken", async function () {
+//         resSqau();
+//       });
+//       Hooks.on("deleteActor", async function () {
+//         resSqau();
+//       });
+//       Hooks.on("deleteToken", async function () {
+//         resSqau();
+//       });
+//       Hooks.on("updateToken", async function () {
+//         resSqau();
+//         if (!game.user.isGM) {
+//           update_mask();
+//         }
+//       });
+//     }
+//   };
+// });
 
 Hooks.on("canvasReady", () => {
   if (minimap_data.shown == false) {
